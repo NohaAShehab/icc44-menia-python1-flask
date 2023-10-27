@@ -72,7 +72,24 @@ class Student(db.Model):
     email = db.Column(db.String)
     image= db.Column(db.String)
 
+    @classmethod
+    def get_all_students(cls):
+        return cls.query.all()
 
+    @classmethod
+    def get_specific_student(cls, id):
+        return cls.query.get_or_404(id)
+
+@app.route('/students', endpoint='students.index')
+def students_index():
+    students=  Student.get_all_students()
+    return render_template('students/index.html', students=students)
+
+
+@app.route('/students/<int:id>', endpoint='students.show')
+def student_show(id):
+    student=  Student.get_specific_student(id)
+    return render_template('students/show.html', student=student)
 
 
 """ each route --> have endpoint if you didn't specify --> flask will use function name"""
