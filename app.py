@@ -43,6 +43,12 @@ def get_user(id):
 def land():
     return render_template("landing.html", users=users)
 
+# create route for errors
+
+@app.errorhandler(404)
+def not_found(error):
+    return  render_template('notfound.html')
+
 """ each route --> have endpoint if you didn't specify --> flask will use function name"""
 if __name__ == '__main__':
     app.run(debug=True)
