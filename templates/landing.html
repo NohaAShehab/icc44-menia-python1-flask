@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Landing</title>
-</head>
-<body>
+{% extends 'layouts/base.html' %}
+{% block title %} Landing page {% endblock %}
+{% block body %}
     <h1 style="color: red; text-align: center"> Welcome to Landing page </h1>
     <h1> All users </h1>
         {{users}}
-    <TABLE>
+    <table class="table">
         <tr>
             <th> ID</th> <th> Name</th> <th> Email</th>
+            <th> Show </th>
         </tr>
 
         {% for user in users %}
@@ -18,8 +15,8 @@
                     <td> {{user['id']}}</td>
                 <td> {{user.name}} </td>
                 <td> {{user.email}}</td>
+                <td> <a class="btn btn-dark" href="{{url_for('user_details', id=user.id)}}">  Show</a></td>
             </tr>
         {% endfor %}
-    </TABLE>
-</body>
-</html>
+    </table>
+{% endblock %}

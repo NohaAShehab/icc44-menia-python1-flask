@@ -1,12 +1,14 @@
-from flask import  Flask
-from flask import  render_template
+from flask import Flask
+from flask import render_template
+
 # create the app
 app = Flask(__name__)
+
 
 # add new routes to the application
 @app.route('/hello')
 def hello():
-    return  "<h1 style='color:green'> Hello world </h1>"
+    return "<h1 style='color:green'> Hello world </h1>"
 
 
 @app.route('/hello/<user>')
@@ -14,11 +16,10 @@ def hello_user(user):
     return f"<h1 style='color:green'> Hello {user} </h1>"
 
 
-
 users = [
-    {"id":1, "name":"omar", "email":"omar@gmail.com"},
-    {"id":2 , "name":"Ahmed", "email": "ahmed@gmail.com"},
-    {"id":3, 'name':"Ali", "email":"ali@gmail.com"}
+    {"id": 1, "name": "omar", "email": "omar@gmail.com"},
+    {"id": 2, "name": "Ahmed", "email": "ahmed@gmail.com"},
+    {"id": 3, 'name': "Ali", "email": "ali@gmail.com"}
 ]
 
 
@@ -27,22 +28,21 @@ def get_users():
     return users
 
 
-@app.route("/users/<int:id>")
+@app.route("/users/<int:id>", endpoint='user_details')
 def get_user(id):
-    filtered_users = filter(lambda user: user['id']==id, users) # filter object
-    filtered_users= list(filtered_users)
+    filtered_users = filter(lambda user: user['id'] == id, users)  # filter object
+    filtered_users = list(filtered_users)
     if filtered_users:
-        return  filtered_users[0]
+        return filtered_users[0]
 
-    return  "<h1>  User not found </h1>"
-
+    return "<h1>  User not found </h1>"
 
 
 # return with template
-@app.route('/landing')
+@app.route('/landing', endpoint='landingpage')
 def land():
-    return  render_template("landing.html", users=users)
+    return render_template("landing.html", users=users)
 
-
-if __name__=='__main__':
+""" each route --> have endpoint if you didn't specify --> flask will use function name"""
+if __name__ == '__main__':
     app.run(debug=True)
