@@ -1,15 +1,21 @@
 from flask import Flask
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
 
 # create the app
 app = Flask(__name__)
+
+# initialize db instance for this app
+db = SQLAlchemy()
+# # add db configuration to this app ?
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.sqlite"
+db.init_app(app)
 
 
 # add new routes to the application
 @app.route('/hello')
 def hello():
     return "<h1 style='color:green'> Hello world </h1>"
-
 
 
 @app.route('/hello/<user>')
@@ -44,15 +50,30 @@ def get_user(id):
 def land():
     return render_template("landing.html", users=users)
 
+
 # create route for errors
 
 @app.errorhandler(404)
 def not_found(error):
-    return  render_template('notfound.html')
+    return render_template('notfound.html')
+
 
 ### assign function to usrl
 from views import test_view
+
 app.add_url_rule('/test', view_func=test_view, endpoint='testview')
+
+
+# models
+class Student(db.Model):
+    __tablename__ = 'students'
+    id  = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    email = db.Column(db.String)
+    image= db.Column(db.String)
+
+
+
 
 """ each route --> have endpoint if you didn't specify --> flask will use function name"""
 if __name__ == '__main__':
