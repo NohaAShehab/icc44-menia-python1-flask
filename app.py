@@ -11,6 +11,7 @@ def hello():
     return "<h1 style='color:green'> Hello world </h1>"
 
 
+
 @app.route('/hello/<user>')
 def hello_user(user):
     return f"<h1 style='color:green'> Hello {user} </h1>"
@@ -48,6 +49,10 @@ def land():
 @app.errorhandler(404)
 def not_found(error):
     return  render_template('notfound.html')
+
+### assign function to usrl
+from views import test_view
+app.add_url_rule('/test', view_func=test_view, endpoint='testview')
 
 """ each route --> have endpoint if you didn't specify --> flask will use function name"""
 if __name__ == '__main__':
