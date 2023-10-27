@@ -1,4 +1,5 @@
 from flask import  Flask
+from flask import  render_template
 # create the app
 app = Flask(__name__)
 
@@ -35,6 +36,12 @@ def get_user(id):
 
     return  "<h1>  User not found </h1>"
 
+
+
+# return with template
+@app.route('/landing')
+def land():
+    return  render_template("landing.html", users=users)
 
 
 if __name__=='__main__':

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landing</title>
+</head>
+<body>
+    <h1 style="color: red; text-align: center"> Welcome to Landing page </h1>
+    <h1> All users </h1>
+        {{users}}
+    <TABLE>
+        <tr>
+            <th> ID</th> <th> Name</th> <th> Email</th>
+        </tr>
+
+        {% for user in users %}
+            <tr>
+                    <td> {{user['id']}}</td>
+                <td> {{user.name}} </td>
+                <td> {{user.email}}</td>
+            </tr>
+        {% endfor %}
+    </TABLE>
+</body>
+</html>
